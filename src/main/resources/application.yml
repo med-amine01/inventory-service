@@ -1,0 +1,15 @@
+server:
+  port: 8087
+
+spring:
+  application:
+    name: inventory-service
+  h2:
+    console:
+      enabled: true
+  datasource:
+    url: jdbc:h2:mem:inventorydb
+    driver-class-name: org.h2.Driver
+eureka:
+  client:
+    enabled: false
