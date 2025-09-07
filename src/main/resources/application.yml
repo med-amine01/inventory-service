@@ -10,6 +10,12 @@ spring:
   datasource:
     url: jdbc:h2:mem:inventorydb
     driver-class-name: org.h2.Driver
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:8040/realms/demo-app
+          jwk-set-uri: http://localhost:8040/realms/demo-app/protocol/openid-connect/certs
 eureka:
   client:
     enabled: false

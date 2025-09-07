@@ -2,6 +2,7 @@ package com.example.inventoryservice.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
@@ -12,7 +13,7 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
-import java.util.Arrays;
+import java.util.List;
 
 @Configuration
 @EnableWebSecurity
@@ -24,19 +25,19 @@ public class SecurityConfig {
 			.csrf(AbstractHttpConfigurer::disable)
 			.headers(headersConfigurer -> headersConfigurer.frameOptions(HeadersConfigurer.FrameOptionsConfig::disable))
 			.cors(cors -> cors.configurationSource(corsConfigurationSource()))
-			.authorizeHttpRequests(ar -> ar.requestMatchers("/api/products", "/api/products/**", "/h2-console/**")
-				.permitAll()
-				.anyRequest()
-				.authenticated())
+			.authorizeHttpRequests(ar -> ar.requestMatchers("/h2-console/**").permitAll())
+			.authorizeHttpRequests(ar -> ar.anyRequest().authenticated())
+			.oauth2ResourceServer(o2 -> o2.jwt(Customizer.withDefaults()))
 			.build();
 	}
 
 	@Bean
 	public CorsConfigurationSource corsConfigurationSource() {
 		CorsConfiguration configuration = new CorsConfiguration();
-		configuration.setAllowedOriginPatterns(Arrays.asList("*"));
-		configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
-		configuration.setAllowedHeaders(Arrays.asList("*"));
+		List<String> allowedOriginPatterns = List.of("*");
+		configuration.setAllowedOriginPatterns(allowedOriginPatterns);
+		configuration.setAllowedMethods(allowedOriginPatterns);
+		configuration.setAllowedHeaders(allowedOriginPatterns);
 		configuration.setAllowCredentials(true);
 
 		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
