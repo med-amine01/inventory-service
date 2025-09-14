@@ -1,3 +1,4 @@
+# Get access token
 POST http://localhost:8040/realms/demo-app/protocol/openid-connect/token
 Content-Type: application/x-www-form-urlencoded
 
@@ -7,35 +8,52 @@ password=user2&
 client_id=demo-app&
 client_secret=vyQks14tffTYxHn5xnja4kxiqTI2kw3I
 
-<> 2025-09-07T130950.200.json
-
 ###
 
-
-POST http://localhost:8040/realms/demo-app/protocol/openid-connect/token
-Content-Type: application/x-www-form-urlencoded
-
-grant_type=refresh_token&
-client_id=demo-app&
-refresh_token=xxxxxxxxxxx&
-client_secret=vyQks14tffTYxHn5xnja4kxiqTI2kw3I
-
-###
-
-
-POST http://localhost:8040/realms/demo-app/protocol/openid-connect/token
-Content-Type: application/x-www-form-urlencoded
-
-grant_type=client_credentials&
-client_id=demo-app&
-client_secret=vyQks14tffTYxHn5xnja4kxiqTI2kw3I
-
-###
-
+# Get all products
 GET http://localhost:8087/api/products
-Authorization: Bearer eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJfUW9vSE5IbGFPempua2hLU1RSSEljZXBILVRDUEdwVGtkWWFOWTVyNjZRIn0.eyJleHAiOjE3NTc4NjU5OTAsImlhdCI6MTc1Nzg2NTY5MCwianRpIjoib25ydHJvOjIxNzcxNjJhLTQxZWYtNTM4MC0wMmEzLWVkMTA1NDM4ZGU2NyIsImlzcyI6Imh0dHA6Ly9sb2NhbGhvc3Q6ODA0MC9yZWFsbXMvZGVtby1hcHAiLCJhdWQiOiJhY2NvdW50Iiwic3ViIjoiNTk2NGU3MTQtMjcyYS00MjVlLThlYzktNDJkZjVjYTFmODJjIiwidHlwIjoiQmVhcmVyIiwiYXpwIjoiZGVtby1hcHAiLCJzaWQiOiJjOTYzZDU1Ni05N2Y3LTRjYWMtOTI0YS00N2U0MzQzNzYxMjUiLCJhY3IiOiIxIiwiYWxsb3dlZC1vcmlnaW5zIjpbImh0dHA6Ly9sb2NhbGhvc3Q6NDIwMCJdLCJyZWFsbV9hY2Nlc3MiOnsicm9sZXMiOlsiZGVmYXVsdC1yb2xlcy1kZW1vLWFwcCIsIm9mZmxpbmVfYWNjZXNzIiwidW1hX2F1dGhvcml6YXRpb24iLCJVU0VSIl19LCJyZXNvdXJjZV9hY2Nlc3MiOnsiYWNjb3VudCI6eyJyb2xlcyI6WyJtYW5hZ2UtYWNjb3VudCIsIm1hbmFnZS1hY2NvdW50LWxpbmtzIiwidmlldy1wcm9maWxlIl19fSwic2NvcGUiOiJlbWFpbCBwcm9maWxlIiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJuYW1lIjoiaWhlYiBjaGViYmkiLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJ1c2VyMiIsImdpdmVuX25hbWUiOiJpaGViIiwiZmFtaWx5X25hbWUiOiJjaGViYmkiLCJlbWFpbCI6InVzZXIyQGdtYWlsLmNvbSJ9.bqdMZ_paggQlZj9ty-p6mHRBnW8fTS0dvHxbaO_YbBJ0eD-2klmxWPEfKpNl-rxOtI_z92rWRd-gq7iVJYEc-DyhuVTBDA1TykDJVX5wF2U487wZ7B0lY2SAfhhlxB_POTeC3nppa_-RY94hf0Y-6uxUtfCNe-f2J_q9Hj0jdx_GGD311LM3ADUSWqfYVm1Zx8fja0SrwvfHXB0dAr8-qbCbgerMoJP2pz1lcYBmVbh6kdmw95irt08lgiR9lObfy9YfoARZBkODnzQbLVYXmjqWhtCWIDJigQDmzBL1tsUpCKhnt1wlAHUiIh4GJ3hD_FmlMtqBoioT4SCgFgKhOw
+Authorization: Bearer {{access_token}}
 
 ###
 
+# Get product by ID
+GET http://localhost:8087/api/products/1
+Authorization: Bearer {{access_token}}
+
+###
+
+# Create new product
+POST http://localhost:8087/api/products
+Authorization: Bearer {{access_token}}
+Content-Type: application/json
+
+{
+  "name": "New Product",
+  "price": 99.99,
+  "quantity": 50
+}
+
+###
+
+# Update existing product
+PUT http://localhost:8087/api/products/1
+Authorization: Bearer {{access_token}}
+Content-Type: application/json
+
+{
+  "name": "Updated Product Name",
+  "price": 149.99,
+  "quantity": 25
+}
+
+###
+
+# Delete product
+DELETE http://localhost:8087/api/products/1
+Authorization: Bearer {{access_token}}
+
+###
+
+# Test authentication endpoint
 GET http://localhost:8087/api/auth
-Authorization: Bearer eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJfUW9vSE5IbGFPempua2hLU1RSSEljZXBILVRDUEdwVGtkWWFOWTVyNjZRIn0.eyJleHAiOjE3NTc4NjU5OTAsImlhdCI6MTc1Nzg2NTY5MCwianRpIjoib25ydHJvOjIxNzcxNjJhLTQxZWYtNTM4MC0wMmEzLWVkMTA1NDM4ZGU2NyIsImlzcyI6Imh0dHA6Ly9sb2NhbGhvc3Q6ODA0MC9yZWFsbXMvZGVtby1hcHAiLCJhdWQiOiJhY2NvdW50Iiwic3ViIjoiNTk2NGU3MTQtMjcyYS00MjVlLThlYzktNDJkZjVjYTFmODJjIiwidHlwIjoiQmVhcmVyIiwiYXpwIjoiZGVtby1hcHAiLCJzaWQiOiJjOTYzZDU1Ni05N2Y3LTRjYWMtOTI0YS00N2U0MzQzNzYxMjUiLCJhY3IiOiIxIiwiYWxsb3dlZC1vcmlnaW5zIjpbImh0dHA6Ly9sb2NhbGhvc3Q6NDIwMCJdLCJyZWFsbV9hY2Nlc3MiOnsicm9sZXMiOlsiZGVmYXVsdC1yb2xlcy1kZW1vLWFwcCIsIm9mZmxpbmVfYWNjZXNzIiwidW1hX2F1dGhvcml6YXRpb24iLCJVU0VSIl19LCJyZXNvdXJjZV9hY2Nlc3MiOnsiYWNjb3VudCI6eyJyb2xlcyI6WyJtYW5hZ2UtYWNjb3VudCIsIm1hbmFnZS1hY2NvdW50LWxpbmtzIiwidmlldy1wcm9maWxlIl19fSwic2NvcGUiOiJlbWFpbCBwcm9maWxlIiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJuYW1lIjoiaWhlYiBjaGViYmkiLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJ1c2VyMiIsImdpdmVuX25hbWUiOiJpaGViIiwiZmFtaWx5X25hbWUiOiJjaGViYmkiLCJlbWFpbCI6InVzZXIyQGdtYWlsLmNvbSJ9.bqdMZ_paggQlZj9ty-p6mHRBnW8fTS0dvHxbaO_YbBJ0eD-2klmxWPEfKpNl-rxOtI_z92rWRd-gq7iVJYEc-DyhuVTBDA1TykDJVX5wF2U487wZ7B0lY2SAfhhlxB_POTeC3nppa_-RY94hf0Y-6uxUtfCNe-f2J_q9Hj0jdx_GGD311LM3ADUSWqfYVm1Zx8fja0SrwvfHXB0dAr8-qbCbgerMoJP2pz1lcYBmVbh6kdmw95irt08lgiR9lObfy9YfoARZBkODnzQbLVYXmjqWhtCWIDJigQDmzBL1tsUpCKhnt1wlAHUiIh4GJ3hD_FmlMtqBoioT4SCgFgKhOw
+Authorization: Bearer {{access_token}}

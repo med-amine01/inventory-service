@@ -2,18 +2,16 @@ package com.example.inventoryservice.model;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+
+import java.math.BigDecimal;
 
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
-@Builder
+@Builder(toBuilder = true)
 public class Product {
 
 	@Id
@@ -21,7 +19,7 @@ public class Product {
 
 	private String name;
 
-	private double price;
+	private BigDecimal price;
 
 	private int quantity;
 

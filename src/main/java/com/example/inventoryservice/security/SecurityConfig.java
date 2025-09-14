@@ -28,7 +28,8 @@ public class SecurityConfig {
 			.headers(headersConfigurer -> headersConfigurer.frameOptions(HeadersConfigurer.FrameOptionsConfig::disable))
 			.cors(cors -> cors.configurationSource(corsConfigurationSource()))
 			.authorizeHttpRequests(ar -> ar.requestMatchers("/h2-console/**").permitAll())
-			//.authorizeHttpRequests(ar -> ar.requestMatchers("/api/products/**").hasRole("ADMIN"))
+			// .authorizeHttpRequests(ar ->
+			// ar.requestMatchers("/api/products/**").hasRole("ADMIN"))
 			.authorizeHttpRequests(ar -> ar.anyRequest().authenticated())
 			.oauth2ResourceServer(o2 -> o2.jwt(jwt -> jwt.jwtAuthenticationConverter(jwtAuthenticationConverter())))
 			.build();
