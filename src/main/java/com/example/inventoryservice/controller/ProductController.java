@@ -29,7 +29,7 @@ public class ProductController {
 
 	@GetMapping("/products/{id}")
 	@PreAuthorize("hasAnyRole('USER', 'ADMIN')")
-	public ResponseEntity<Product> getProductById(@PathVariable String id) {
+	public ResponseEntity<Product> getProductById(@PathVariable("id") String id) {
 		return ResponseEntity.ok(productService.getProductById(id));
 	}
 
@@ -42,14 +42,15 @@ public class ProductController {
 
 	@PutMapping("/products/{id}")
 	@PreAuthorize("hasRole('ADMIN')")
-	public ResponseEntity<Product> updateProduct(@PathVariable String id, @Valid @RequestBody ProductRequest request) {
+	public ResponseEntity<Product> updateProduct(@PathVariable("id") String id,
+			@Valid @RequestBody ProductRequest request) {
 		Product updatedProduct = productService.updateProduct(id, request);
 		return ResponseEntity.ok(updatedProduct);
 	}
 
 	@DeleteMapping("/products/{id}")
 	@PreAuthorize("hasRole('ADMIN')")
-	public ResponseEntity<Void> deleteProduct(@PathVariable String id) {
+	public ResponseEntity<Void> deleteProduct(@PathVariable("id") String id) {
 		productService.deleteProduct(id);
 		return ResponseEntity.noContent().build();
 	}
