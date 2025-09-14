@@ -4,6 +4,7 @@ import com.example.inventoryservice.model.Product;
 import com.example.inventoryservice.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,6 +22,7 @@ public class ProductController {
 
 	// Get all products
 	@GetMapping("/products")
+    @PreAuthorize("hasRole('ADMIN')")
 	public ResponseEntity<List<Product>> getAllProducts() {
 		List<Product> products = productService.getAllProducts();
 		return ResponseEntity.ok(products);
